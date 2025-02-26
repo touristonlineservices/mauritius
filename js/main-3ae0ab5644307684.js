@@ -1530,7 +1530,7 @@
                     let { scripts: l, css: u } = r;
                     return Promise.all([
                       n.has(o) ? [] : Promise.all(l.map(maybeExecuteScript)),
-                    //   Promise.all(u.map(fetchStyleSheet)),
+                      Promise.all(u.map(fetchStyleSheet)),
                     ]);
                   })
                   .then((r) =>
@@ -3581,17 +3581,17 @@
       function createKey() {
         return Math.random().toString(36).slice(2, 10);
       }
-    //   function handleHardNavigation(r) {
-    //     let { url: n, router: o } = r;
-    //     if (n === (0, C.addBasePath)((0, j.addLocale)(o.asPath, o.locale)))
-    //       throw Error(
-    //         "Invariant: attempted to hard navigate to the same URL " +
-    //           n +
-    //           " " +
-    //           location.href
-    //       );
-    //     window.location.href = n;
-    //   }
+      function handleHardNavigation(r) {
+        let { url: n, router: o } = r;
+        if (n === (0, C.addBasePath)((0, j.addLocale)(o.asPath, o.locale)))
+          throw Error(
+            "Invariant: attempted to hard navigate to the same URL " +
+              n +
+              " " +
+              location.href
+          );
+        window.location.href = n;
+      }
       let getCancelledHandler = (r) => {
         let { route: n, router: o } = r,
           l = !1,
@@ -4051,11 +4051,11 @@
               ));
         }
         async handleRouteInfoError(r, n, o, l, u, s) {
-        //   if ((console.error(r), r.cancelled)) throw r;
+          if ((console.error(r), r.cancelled)) throw r;
           if ((0, d.isAssetError)(r) || s)
             throw (
               (Router.events.emit("routeChangeError", r, l, u),
-            //   handleHardNavigation({ url: l, router: this }),
+              handleHardNavigation({ url: l, router: this }),
               buildCancellationError())
             );
           try {
